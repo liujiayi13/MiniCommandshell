@@ -1,0 +1,231 @@
+the main function is contained in myShell.cpp and a class called
+Myshell is contained in myShell.h. myecho.exe and test.txt are 
+both for testing. Program myecho.exe can print the input to the shell.
+I test my function seperatedly in program test.exe. output.txt and
+error.txt are results for redirection.
+
+I provide a Makefile to compile myShell.cpp and myShell.h.
+ 
+Then I test the following testcase which are all valgrind clean 
+after exit.
+
+(1) Run ./myShell 
+    It prints myShell:/home/jl843/ece551/mp_miniproject $
+    which is correct because it's the current working path.
+    
+(2) Run (no command)
+    It prints Error : please input command
+    which is correct because we need at least one input to
+    do the command.
+    
+(3) Run cat test.txt
+    It prints 
+    ECE551
+    miniproject
+    Jiayi Liu
+    Program exited with status 0
+    which is correct because it runs the command and print the exit status.
+    
+(4) Run cat testt.txt
+    It prints 
+    /bin/cat: testt.txt: No such file or directory
+    Program exited with status 1
+    which is correct because it prints the error and the exit status.
+
+(5) Run exit or ^D
+    It terminates the program which is correct as required.
+   
+(6) Run catt test.txt
+    It prints 
+    Command catt not found
+    Program exited with status 1 
+    which is correct because this command doesn't exist so it should 
+    print the error to tell the user.
+    
+(7) Run         ls        -l         /usr
+    It prints 
+    total 120
+    drwxr-xr-x   2 root root 45056 Dec  4 06:18 bin
+    drwxr-xr-x   2 root root     6 Apr 12  2016 games
+    drwxr-xr-x  53 root root  8192 Dec  1 11:27 include
+    drwxr-xr-x  78 root root  4096 Nov  8 06:06 lib
+    drwxr-xr-x   3 root root    89 Aug 18 14:39 lib32
+    drwxr-xr-x  14 root root   174 Oct  6 15:40 local
+    drwxr-xr-x   2 root root  8192 Dec  1 06:41 sbin
+    drwxr-xr-x 165 root root  8192 Dec  1 11:27 share
+    drwxr-xr-x  10 root root   286 Dec  4 06:18 src
+    Program exited with status 0
+    which is correct because it can take arguments separated 
+    by white space and there may be an arbitrary amount of whitespace 
+    between arguments.
+    
+(8) Run ./myecho a b\ c\ d    ef
+    It prints
+    argv[0]: ./myecho
+    argv[1]: a
+    argv[2]: b c d
+    argv[3]: ef
+    Program exited with status 0
+    which is correct because "\ " should be translate to " " and
+    not as a seperator.
+    
+(9) Run cd
+    the current working path printed changes to
+    myShell:/home/jl843 $
+    which is correct because run command cd with no other arguments will
+    change the current working path to the path in HOME in the environment.
+    
+    then Run cd ece551
+    the current working path printed changes to
+    myShell:/home/jl843/ece551
+    
+    then Run /home
+    the current working path printed changes to
+    myShell:/home
+    which are correct because cd should implement on both absolute path and
+    relative path.     
+    
+    Run cd /ab
+    it prints
+    Error : Can't find the path
+    
+    Run cd a a
+    it prints
+    Error: Command cd need less than 2 parameters 
+    which is correct because both situation here should be treated as error.
+    
+(10) Run set a 3
+     Run set b 4
+     Run echo a_bvalue=$a_$b
+     it prints 
+     a_bvalue=3_4
+     Program exited with status 0
+     which is correct because $a is translated to 3 and $b is translated to 4 and
+     $a$b expands to 34. Also, other strings such as "abvalue=" is allowed to 
+     combine with variable.
+     
+     Run echo $c
+     it prints
+     Error : Can't find this variable
+     which is correct because it's an error since we try to translate a variable 
+     which is not exist.
+     
+(11) Run set a 3
+     Run export a
+     Run env
+     it prints    (part of the output)
+     XDG_RUNTIME_DIR=/run/user/1282
+     PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+     LESSOPEN=| /usr/bin/lesspipe %s
+     _=./myShell
+     a=3
+     Program exited with status 0
+     which is correct because we find a is already exist in environment and 
+     have the value of 3 after export.
+     
+     then
+     Run export
+     Error : please input the variable you want to export
+     Run export a a
+     Error : you can only export 1 variable every time
+     which is correct because the user can export one but only one variable in a command.
+    
+(12) Run set a -2
+     Run inc a
+     Run echo $a
+     it prints
+     -1
+     Program exited with status 0
+     which is correct because command "inc" increase the value of a by one
+     
+(13) Run set 
+     or
+     Run set a 3 3
+     it prints
+     Error : need one variable and one value
+     which is correct because command set need 2 parameters and print error if not.
+     
+(14) Run set b ece
+     Run inc b
+     Run echo $b
+     it prints
+     1
+     which is correct because b is not a number before so I treat it as "0";
+     
+     Run inc b b
+     it prints
+     Error : You can only increase 1 variable
+     Run inc
+     it prints
+     Error : need varibale for increase
+     which is correct because I treat this situation as a error. I require that
+     user can only increase one but only one varible in a command.
+     
+(15) Run set a cat
+     Run set b README
+     Run $a $b
+     it prints       (part of the output)
+     We expect your code to
+     - Be adequately commented
+     - Make good use of abstraction (both in terms of functions and classes)
+     - Be well-formatted and easy to read
+     - Use good variable names. If I see a variable called "flag" (or anything
+    like that), I guarantee you will lose points here.
+
+    As always, you should perform good error checking and valgrind cleanly.
+    Program exited with status 0
+    
+    which is correct because it get exactly the same result as inputing "cat README".
+    
+(16) Run set PATH /sbin
+     Run export PATH
+     Run ls
+     it prints
+     Command ls not found
+     Program exited with status 1
+     which is correct because I change the environment path so it can't find the 
+     command ls in the new path.
+     
+(17) Run ls -l > output.txt
+     it prints
+     Program exited with status 0
+     and output.txt has the content which is exactly the same as the contend displayed
+     on shell when inputing ls -l which is correct because it redirect the cout to 
+     file output.txt.
+     
+(18) Run cat README > output.txt > output1.txt
+     it prints
+     Error : only need one > redirection
+     Program exited with status 1
+     which is correct because I treat this situation as an error and only allowed one
+     > in a command.
+
+(19) Run cat READme 2> error.txt
+     it prints
+     Program exited with status 1
+     and error.txt has the content of 
+     /bin/cat: READme: No such file or directory
+     which is correct because it prints the error in error.txt but not shell so cerr is
+     redirected to output.txt.
+     
+(20) Run set a! 13
+     it prints
+     Error: variable name must be combination of letters, underscore and numbers
+     which is correct because variable name must be a combination of letters (case sensitive), 
+     underscores, and numbers.
+
+(21) Run ls >
+     it prints
+     Error : need file for redirection
+     Program exited with status 1
+     which is correct because we treat it as an error since it doesn't provide the file
+     for redirection.
+ 
+(22) Run set PATH /ece551
+     Run export PATH
+     it prints:
+     Not a valid path: No such file or directory
+     which is correct because the path /ece551 doesn't exist. It's an error since we set PATH
+     to an unreachable path.
+     
+     

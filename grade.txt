@@ -1,0 +1,3 @@
+Grade: 93.1
+Comments:
+Control+D to exist did not work. Did not escape leading spaces. Did not handle "/" in command properly. Good functionalities abstraction but putting everything in MyShell class is not good. For example, isnum, int2str has nothing to do with MyShell should be put outside of MyShell or as private member functions of MyShell. Documentation: too few useful comments, some comments are too short or unnecessary. Formatting: bad indentation in main function . Also, it seems like you did not understand the right way to use and the relationship between .h and .cpp files.

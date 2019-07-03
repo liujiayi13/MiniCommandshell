@@ -1,0 +1,19 @@
+total 724
+-rw-rw-r-- 1 jl843 jl843   7055 Nov 14 02:48 commandShell.txt
+-rwxrwxr-x 1 jl843 jl843 216992 Dec  4 17:58 execve
+-rw-r--r-- 1 jl843 jl843   6267 Dec  4 17:58 execve.cpp
+-rw-r--r-- 1 jl843 jl843    102 Dec  4 16:21 Makefile
+-rw-r--r-- 1 jl843 jl843     88 Dec  4 17:57 Makefile1
+-rwxrwxr-x 1 jl843 jl843  59304 Dec  4 17:01 myecho
+-rw-r--r-- 1 jl843 jl843    181 Dec  4 16:21 myecho.cpp
+drwxrwxr-x 2 jl843 jl843    187 Dec  4 12:25 myproject
+-rwxrwxr-x 1 jl843 jl843 376352 Dec  4 17:58 myShell
+-rw-r--r-- 1 jl843 jl843   1003 Dec  4 16:21 myShell.cpp
+-rw-r--r-- 1 jl843 jl843  12302 Dec  4 17:58 myShell.h
+-rw-rw-r-- 1 jl843 jl843   8881 Nov 14 02:48 numerics.txt
+-rwx------ 1 jl843 jl843      0 Dec  4 19:45 output.txt
+drwxrwxr-x 2 jl843 jl843   4096 Dec  3 13:46 project
+-rw-rw-r-- 1 jl843 jl843   2475 Nov 30 12:50 README
+-rw-r--r-- 1 jl843 jl843    127 Dec  4 16:21 test1.txt
+-rw-rw-r-- 1 jl843 jl843   4712 Dec  4 18:33 TESTING.txt
+-rw-r--r-- 1 jl843 jl843     29 Dec  4 16:38 test.txt
