@@ -2,7 +2,7 @@
 
 It's a project as a command shell
 
-Just type Run ./myShell to start running this program.
+Just type ```Run ./myShell``` to start running this program.
 
 You can use many operations the same as Linux shell such as ls, cd, set and so on.
 
